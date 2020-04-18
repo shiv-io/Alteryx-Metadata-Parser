@@ -12,22 +12,6 @@ class NodeElement(object):
         self.y_pos = float(node.find('GuiSettings').find('Position').attrib['y'])
 
         self.tool = self.plugin.split('.')[-1] if self.plugin else None
-        # if self.plugin:
-        #     self.tool = self.plugin.split('.')[-1]
-        # else:
-        #     self.tool = None
-
-        # if self.plugin == 'AlteryxSpatialPluginsGui.Summarize.Summarize':
-        #     self.summarized_fields = []
-        #     summarize_fields = node\
-        #         .find('Properties')\
-        #         .find('Configuration')\
-        #         .find('SummarizeFields')\
-        #         .findall('SummarizeField')
-        #     for field in summarize_fields:
-        #         self.summarized_fields.append(field.attrib)
-        # else:
-        #     self.summarized_fields = None
 
         if self.plugin == 'AlteryxBasePluginsGui.Join.Join':
             join_data = node\
