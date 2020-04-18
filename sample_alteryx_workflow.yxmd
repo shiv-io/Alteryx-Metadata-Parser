@@ -1,0 +1,626 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="10.5">
+  <Nodes>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxConnectorGui.Download.Download">
+        <Position x="138" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <URLField>URL</URLField>
+          <OutputMode>TempFile</OutputMode>
+          <EncodeURLs value="True" />
+          <Headers>
+            <NameValues />
+            <Fields orderChanged="False">
+              <Field name="Airline" selected="False" />
+              <Field name="URL" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </Fields>
+          </Headers>
+          <Payload>
+            <HTTPAction>GET</HTTPAction>
+            <QueryStringBodyMode>Compose</QueryStringBodyMode>
+            <ComposeNameValues />
+            <ComposeFields orderChanged="False">
+              <Field name="Airline" selected="False" />
+              <Field name="URL" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </ComposeFields>
+          </Payload>
+          <UserName />
+          <Password />
+          <numConnections>2</numConnections>
+          <Timeout>600</Timeout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxDownload" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="306" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>DownloadData</Field>
+          <RegExExpression value="&lt;tr&gt;\s+&lt;td class=&quot;w40 hidden-xs hidden-sm&quot;&gt;[^&lt;]*&lt;/td&gt;\s+&lt;td&gt;&lt;a href=&quot;[^&quot;]*&quot;&gt;[^&lt;]*&lt;/a&gt;&lt;/td&gt;\s*&lt;td[^&gt;]*&gt;[^&lt;]*&lt;a href=&quot;[^&quot;]*&quot;&gt;[^&lt;]*&lt;/a&gt;\)&lt;/td&gt;\s*&lt;td[^&gt;]*&gt;[^&lt;]*&lt;a href=&quot;[^&quot;]*&quot;&gt;[^&lt;]*&lt;/a&gt;\)&lt;/td&gt;" />
+          <CaseInsensitve value="True" />
+          <Method>ParseSimple</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="True" />
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="No Marked Groups Found" type="No Marked Groups Found" size="No Marked Groups Found" />
+          </ParseComplex>
+          <Match>
+            <Field>DownloadData_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Tokenize:
+&lt;tr&gt;\s+&lt;td class="w40 hidde...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="426" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>DownloadData</Field>
+          <RegExExpression value="&lt;tr&gt;\s+&lt;td class=&quot;w40 hidden-xs hidden-sm&quot;&gt;[^&lt;]*&lt;/td&gt;\s+&lt;td&gt;&lt;a href=&quot;([^&quot;]*)&quot;&gt;([^&lt;]*)&lt;/a&gt;&lt;/td&gt;\s*&lt;td[^&gt;]*&gt;[^&lt;]*&lt;a href=&quot;[^&quot;]*&quot;&gt;([^&lt;]*)&lt;/a&gt;\)&lt;/td&gt;\s*&lt;td[^&gt;]*&gt;[^&lt;]*&lt;a href=&quot;[^&quot;]*&quot;&gt;([^&lt;]*)&lt;/a&gt;\)&lt;/td&gt;" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="True" />
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="FlightUri" type="V_WString" size="1073741823" />
+            <Field field="FlightCode" type="V_WString" size="1073741823" />
+            <Field field="StartAirport" type="V_WString" size="1073741823" />
+            <Field field="EndAirport" type="V_WString" size="1073741823" />
+          </ParseComplex>
+          <Match>
+            <Field>DownloadData_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Parse:
+&lt;tr&gt;\s+&lt;td class="w40 hidde...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AutoField.AutoField">
+        <Position x="642" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Fields>
+            <Field field="Airline" selected="True" />
+            <Field field="FlightCode" selected="True" />
+            <Field field="FlightUri" selected="True" />
+            <Field field="StartAirport" selected="True" />
+            <Field field="EndAirport" selected="True" />
+            <Field field="*Unknown" selected="True" />
+          </Fields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from DownloadData" name="Airline" size="34" source="RegEx: Parsed from DownloadData" type="V_String" />
+            <Field description="RegEx: Parsed from DownloadData" name="FlightCode" source="RegEx: Parsed from DownloadData" type="Bool" />
+            <Field description="RegEx: Parsed from DownloadData" name="FlightUri" source="RegEx: Parsed from DownloadData" type="Bool" />
+            <Field description="RegEx: Parsed from DownloadData" name="StartAirport" source="RegEx: Parsed from DownloadData" type="Bool" />
+            <Field description="RegEx: Parsed from DownloadData" name="EndAirport" source="RegEx: Parsed from DownloadData" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAutoField" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="546" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <SelectFields>
+            <SelectField field="URL" selected="False" />
+            <SelectField field="Airline" selected="True" />
+            <SelectField field="DownloadData" selected="False" />
+            <SelectField field="DownloadHeaders" selected="False" />
+            <SelectField field="FlightCode" selected="True" />
+            <SelectField field="FlightUri" selected="True" />
+            <SelectField field="StartAirport" selected="True" />
+            <SelectField field="EndAirport" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="630" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">C:\Downloads\airports.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>airports.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from DownloadData" name="AirportUri" size="119" source="Formula: 'https://www.world-airport-codes.com' + [AirportUri]" type="V_String" />
+            <Field description="RegEx: Parsed from DownloadData" name="Airport" size="57" source="RegEx: Parsed from DownloadData" type="V_WString" />
+            <Field description="RegEx: Parsed from DownloadData" name="City" size="41" source="RegEx: Parsed from DownloadData" type="V_WString" />
+            <Field description="RegEx: Parsed from DownloadData" name="Country" size="36" source="RegEx: Parsed from DownloadData" type="V_String" />
+            <Field description="RegEx: Parsed from DownloadData" name="IATA" size="3" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="ICAO" size="4" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="FAA" size="4" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field name="DownloadData" size="363677" source="Download" type="V_WString" />
+            <Field description="RegEx: Parsed from DownloadData" name="Email" size="1" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="FAA_Code" size="4" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="Facebook" size="1" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="Fax" size="25" source="RegEx: Parsed from DownloadData" type="V_String" />
+            <Field description="RegEx: Parsed from DownloadData" name="IATA_Code" size="3" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="ICAO_Code" size="4" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="Latitude" source="RegEx: Parsed from DownloadData" type="Double" />
+            <Field description="RegEx: Parsed from DownloadData" name="Longitude" source="RegEx: Parsed from DownloadData" type="Double" />
+            <Field description="RegEx: Parsed from DownloadData" name="Phone" size="95" source="RegEx: Parsed from DownloadData" type="V_WString" />
+            <Field description="RegEx: Parsed from DownloadData" name="Time_Zone" size="42" source="RegEx: Parsed from DownloadData" type="V_String" />
+            <Field description="RegEx: Parsed from DownloadData" name="Twitter" size="1" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="WAC" size="1" source="RegEx: Parsed from DownloadData" type="String" />
+            <Field description="RegEx: Parsed from DownloadData" name="_Null_" source="RegEx: Parsed from DownloadData" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="726" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="StartAirport" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="IATA" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="Left_Airline" selected="True" />
+                <SelectField field="Left_FlightCode" selected="True" />
+                <SelectField field="Left_FlightUri" selected="True" />
+                <SelectField field="Left_StartAirport" selected="True" />
+                <SelectField field="Left_EndAirport" selected="True" />
+                <SelectField field="Right_Latitude" selected="True" rename="StartLatitude" />
+                <SelectField field="Right_Longitude" selected="True" rename="StartLongitude" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="846" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="EndAirport" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="IATA" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="Left_Airline" selected="True" />
+                <SelectField field="Left_FlightCode" selected="True" />
+                <SelectField field="Left_FlightUri" selected="True" />
+                <SelectField field="Left_StartAirport" selected="True" />
+                <SelectField field="Left_EndAirport" selected="True" />
+                <SelectField field="Left_StartLatitude" selected="True" />
+                <SelectField field="Left_StartLongitude" selected="True" />
+                <SelectField field="Right_Latitude" selected="True" rename="EndLatitude" />
+                <SelectField field="Right_Longitude" selected="True" rename="EndLongitude" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings>
+        <Position x="942" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Points"><![CDATA[LatitudeA=StartLatitude
+LongitudeA=StartLongitude
+LatitudeB=EndLatitude
+LongitudeB=EndLongitude
+]]></Value>
+          <Value name="Numeric Up Down (23)">100</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings Macro="GreatArcs.yxmc" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="1062" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="0">C:\Repos\Alteryx\FlightRadarDownload.csv</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <LineEndStyle>CRLF</LineEndStyle>
+            <Delimeter>,</Delimeter>
+            <ForceQuotes>False</ForceQuotes>
+            <HeaderRow>True</HeaderRow>
+            <CodePage>28591</CodePage>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>FlightRadarDownload.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="114" y="6" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="1" />
+          <Fields>
+            <Field name="Airline List" />
+          </Fields>
+          <Data>
+            <r>
+              <c>https://www.flightradar24.com/data/flights</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxConnectorGui.Download.Download">
+        <Position x="210" y="6" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <URLField>Airline List</URLField>
+          <OutputMode>String</OutputMode>
+          <CodePage>65001</CodePage>
+          <EncodeURLs value="True" />
+          <Headers>
+            <NameValues />
+            <Fields orderChanged="False">
+              <Field name="Airline List" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </Fields>
+          </Headers>
+          <Payload>
+            <HTTPAction>GET</HTTPAction>
+            <QueryStringBodyMode>Compose</QueryStringBodyMode>
+            <ComposeNameValues />
+            <ComposeFields orderChanged="False">
+              <Field name="Airline List" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </ComposeFields>
+          </Payload>
+          <UserName />
+          <Password />
+          <numConnections>2</numConnections>
+          <Timeout>600</Timeout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxDownload" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="306" y="6" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>DownloadData</Field>
+          <RegExExpression value="&lt;a target=&quot;_self&quot;\s*class=&quot;text-center&quot;\s*title=&quot;[^&quot;]+&quot;\s*href=&quot;[^&quot;]+&quot;\s*data-country=&quot;[^&quot;]+&quot;\s*&gt;" />
+          <CaseInsensitve value="True" />
+          <Method>ParseSimple</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="True" />
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="No Marked Groups Found" type="No Marked Groups Found" size="No Marked Groups Found" />
+          </ParseComplex>
+          <Match>
+            <Field>DownloadData_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Tokenize:
+&lt;a target="_self"\s*class="...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="426" y="6" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>DownloadData</Field>
+          <RegExExpression value="&lt;a target=&quot;_self&quot;\s*class=&quot;text-center&quot;\s*title=&quot;([^&quot;]+)&quot;\s*href=&quot;([^&quot;]+)&quot;\s*data-country=&quot;[^&quot;]+&quot;\s*&gt;" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>DownloadData</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="Airline" type="V_WString" size="1073741823" />
+            <Field field="URL" type="V_WString" size="1073741823" />
+          </ParseComplex>
+          <Match>
+            <Field>DownloadData_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Parse:
+&lt;a target="_self"\s*class="...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="546" y="6" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="Airline List" selected="False" />
+            <SelectField field="DownloadData" selected="False" />
+            <SelectField field="DownloadHeaders" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AutoField.AutoField">
+        <Position x="642" y="6" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Fields>
+            <Field field="Airline" selected="True" />
+            <Field field="URL" selected="True" />
+            <Field field="*Unknown" selected="True" />
+          </Fields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from DownloadData" name="Airline" size="34" source="RegEx: Parsed from DownloadData" type="V_String" />
+            <Field description="RegEx: Parsed from DownloadData" name="URL" size="84" source="RegEx: Parsed from DownloadData" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAutoField" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="9" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="10" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Join" />
+      <Destination ToolID="10" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Join" />
+      <Destination ToolID="11" Connection="Points" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output26" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>FlightRadarDownload</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

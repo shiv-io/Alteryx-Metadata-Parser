@@ -1,0 +1,17 @@
+Tool ID,Plugin,Tool,Description,x,y,Left Join Fields,Right Join Fields
+2,AlteryxConnectorGui.Download.Download,Download,,138.0,150.0,,
+3,AlteryxBasePluginsGui.RegEx.RegEx,RegEx,"Tokenize: <tr>\s+<td class=""w40 hidde...",306.0,150.0,,
+5,AlteryxBasePluginsGui.RegEx.RegEx,RegEx,"Parse: <tr>\s+<td class=""w40 hidde...",426.0,150.0,,
+6,AlteryxBasePluginsGui.AutoField.AutoField,AutoField,,642.0,150.0,,
+7,AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect,AlteryxSelect,,546.0,150.0,,
+8,AlteryxBasePluginsGui.DbFileInput.DbFileInput,DbFileInput,airports.yxdb,630.0,258.0,,
+9,AlteryxBasePluginsGui.Join.Join,Join,,726.0,162.0,['StartAirport'],['IATA']
+10,AlteryxBasePluginsGui.Join.Join,Join,,846.0,162.0,['EndAirport'],['IATA']
+11,,,,942.0,162.0,,
+12,AlteryxBasePluginsGui.DbFileOutput.DbFileOutput,DbFileOutput,FlightRadarDownload.csv,1062.0,162.0,,
+13,AlteryxBasePluginsGui.TextInput.TextInput,TextInput,,114.0,6.0,,
+14,AlteryxConnectorGui.Download.Download,Download,,210.0,6.0,,
+15,AlteryxBasePluginsGui.RegEx.RegEx,RegEx,"Tokenize: <a target=""_self""\s*class=""...",306.0,6.0,,
+16,AlteryxBasePluginsGui.RegEx.RegEx,RegEx,"Parse: <a target=""_self""\s*class=""...",426.0,6.0,,
+17,AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect,AlteryxSelect,,546.0,6.0,,
+18,AlteryxBasePluginsGui.AutoField.AutoField,AutoField,,642.0,6.0,,
