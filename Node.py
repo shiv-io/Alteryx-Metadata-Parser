@@ -1,4 +1,3 @@
-
 class NodeElement(object):
 
     def __init__(self, node):
@@ -14,9 +13,9 @@ class NodeElement(object):
         self.tool = self.plugin.split('.')[-1] if self.plugin else None
 
         if self.plugin == 'AlteryxBasePluginsGui.Join.Join':
-            join_data = node\
-                .find('Properties')\
-                .find('Configuration')\
+            join_data = node \
+                .find('Properties') \
+                .find('Configuration') \
                 .findall('JoinInfo')
             ljoin_data = join_data[0]
             rjoin_data = join_data[1]
@@ -31,19 +30,18 @@ class NodeElement(object):
             self.rjoin_fields = None
 
         if self.plugin == 'AlteryxGuiToolkit.ToolContainer.ToolContainer':
-            self.description = node\
-                .find('Properties')\
-                .find('Configuration')\
+            self.description = node \
+                .find('Properties') \
+                .find('Configuration') \
                 .find('Caption').text
         else:
             try:
-                self.description = node\
-                .find('Properties')\
-                .find('Annotation')\
-                .find('DefaultAnnotationText').text
+                self.description = node \
+                    .find('Properties') \
+                    .find('Annotation') \
+                    .find('DefaultAnnotationText').text
             except:
                 self.description = None
-
 
         self.description = self.description.replace('\n', ' ') if self.description else None
 
