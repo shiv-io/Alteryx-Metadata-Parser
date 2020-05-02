@@ -4,8 +4,8 @@ Parse metadata from Alteryx workflow files. The app parses the Alteryx workflow
 nodes in the workflow.
 
 ## Why?
-I'm often working on a large ETL pipeline in Alteryx, and need to ensure all Join
-tools have the correct join clauses. Doing this manually is cumbersome, 
+I'm often working on a large ETL pipeline in Alteryx and need to ensure all Join
+tools have the correct join clauses (among other things). Doing this manually is cumbersome, 
 so I came up with this.
 
 ## Dependencies
