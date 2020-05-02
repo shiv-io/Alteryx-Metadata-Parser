@@ -43,6 +43,16 @@ class NodeElement(object):
             except:
                 self.description = None
 
+        if self.plugin == 'AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect':
+            self.select_fields = node \
+                .find('Properties') \
+                .find('Configuration') \
+                .find('SelectFields') \
+                .findall('SelectField')
+            self.select_fields = [field.attrib for field in self.select_fields]
+        else:
+            self.select_fields = None
+
         self.description = self.description.replace('\n', ' ') if self.description else None
 
         self.data = {
@@ -53,5 +63,6 @@ class NodeElement(object):
             'x': self.x_pos,
             'y': self.y_pos,
             'Left Join Fields': self.ljoin_fields,
-            'Right Join Fields': self.rjoin_fields
+            'Right Join Fields': self.rjoin_fields,
+            'Select Fields': self.select_fields
         }
