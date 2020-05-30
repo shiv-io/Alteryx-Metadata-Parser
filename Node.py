@@ -2,14 +2,9 @@ class NodeElement(object):
 
     def __init__(self, node):
         self.tool_id = node.attrib['ToolID']
-        try:
-            self.plugin = node.find('GuiSettings').attrib['Plugin']
-        except KeyError:
-            self.plugin = None
-
+        self.plugin = node.find('GuiSettings').attrib.get('Plugin')
         self.x_pos = float(node.find('GuiSettings').find('Position').attrib['x'])
         self.y_pos = float(node.find('GuiSettings').find('Position').attrib['y'])
-
         self.tool = self.plugin.split('.')[-1] if self.plugin else None
 
         if self.plugin == 'AlteryxBasePluginsGui.Join.Join':
