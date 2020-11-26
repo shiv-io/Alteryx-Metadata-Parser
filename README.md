@@ -12,8 +12,10 @@ so I came up with this.
 Python 3.7
 
 ## Usage
-Supports both .yxmd and .xml files. Example: <br>
-`python examine_alteryx_workflow.py your_alteryx_workflow.yxmd your_output_csv.csv`
+Supports both .yxmd and .xml files.
+```
+python <examine_alteryx_workflow.py> <your_alteryx_workflow.yxmd> <your_output.csv>
+```
 
-## Contribute
+## Contributing
 Fork and submit a PR. Comments and questions welcome. 
